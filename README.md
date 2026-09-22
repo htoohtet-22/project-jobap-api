@@ -23,7 +23,7 @@ NestJS + Prisma + NeonDB (Postgres) API for tracking job applications, with JWT 
    ```bash
    cp .env.example .env
    ```
-   Fill in `DATABASE_URL` with your Neon connection string and set a strong `JWT_SECRET`.
+   Replace the placeholder value of `DATABASE_URL` with your Neon connection string and that of `FRONTEND_URL` with your hosted front-end url, and also, set a strong `JWT_SECRET`.
 
 4. **Run the first migration** (creates tables in Neon and generates the Prisma client)
    ```bash
