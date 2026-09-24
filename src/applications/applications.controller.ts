@@ -2,7 +2,11 @@ import {
   Controller,
   UseGuards,
   Body,
+  Param,
   Post,
+  Get,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -13,7 +17,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApplicationsService } from './applications.service';
 import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import { CreateApplicationDto } from './dto/create-application.dto';
-import { ApplicationStatus } from '../generated/prisma/enums';
+import { UpdateApplicationDto } from './dto/update-application.dto';
 
 @ApiTags('applications')
 @ApiBearerAuth()
@@ -24,7 +28,46 @@ export class ApplicationsController {
 
   @Post()
   @ApiOperation({ summary: 'Create a job application' })
-  create(@CurrentUser() user: { userId: string }, @Body() dto: CreateApplicationDto) {
+  create(
+    @CurrentUser() user: { userId: string }, 
+    @Body() dto: CreateApplicationDto
+  ) {
     return this.applicationsService.create(user.userId, dto);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Get all job aplications' })
+  findAll(
+    @CurrentUser() user: { userId: string },
+  ) {
+    return this.applicationsService.findAll(user.userId);
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get a single job application' })
+  findOne(
+    @CurrentUser() user: { userId: string }, 
+    @Param('id') id: string
+  ) {
+    return this.applicationsService.findOne(user.userId, id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update a job application' })
+  update(
+    @CurrentUser() user: { userId: string },
+    @Param('id') id: string,
+    @Body() dto: UpdateApplicationDto,
+  ) {
+    return this.applicationsService.update(user.userId, id, dto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a job application' })
+  remove(
+    @CurrentUser() user: { userId: string }, 
+    @Param('id') id: string
+  ) {
+    return this.applicationsService.remove(user.userId, id);
   }
 }

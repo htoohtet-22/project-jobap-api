@@ -1,20 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsEnum,
   IsDateString,
   IsEmail,
-  IsEnum,
-  IsOptional,
-  IsString,
   IsUrl,
 } from 'class-validator';
 import { ApplicationStatus } from '../../generated/prisma/enums';
 
 export class CreateApplicationDto {
   @ApiProperty({ example: 'Acme Corp' })
+  @IsNotEmpty()
   @IsString()
   company: string;
 
   @ApiProperty({ example: 'Frontend Engineer' })
+  @IsNotEmpty()
   @IsString()
   title: string;
 
