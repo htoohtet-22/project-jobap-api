@@ -8,7 +8,7 @@ import {
   IsEmail,
   IsUrl,
 } from 'class-validator';
-import { ApplicationStatus } from '../../generated/prisma/enums';
+import { ApplicationStatus } from '../../generated/prisma/enums.js';
 
 export class CreateApplicationDto {
   @ApiProperty({ example: 'Acme Corp' })

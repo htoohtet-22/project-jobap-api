@@ -14,10 +14,10 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { ApplicationsService } from './applications.service';
-import { CurrentUser } from '../auth/decorator/current-user.decorator';
-import { CreateApplicationDto } from './dto/create-application.dto';
-import { UpdateApplicationDto } from './dto/update-application.dto';
+import { ApplicationsService } from './applications.service.js';
+import { CurrentUser } from '../auth/decorator/current-user.decorator.js';
+import { CreateApplicationDto } from './dto/create-application.dto.js';
+import { UpdateApplicationDto } from './dto/update-application.dto.js';
 
 @ApiTags('applications')
 @ApiBearerAuth()
