@@ -3,6 +3,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module.js';
+import { get } from 'http';
+import { createWriteStream } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -31,10 +33,16 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api', app, document, {
+    customJs: [
+      '/swagger-assets/swagger-ui-bundle.js',
+      '/swagger-assets/swagger-ui-standalone-preset.js',
+    ],
+    customCssUrl: '/swagger-assets/swagger-ui.css',
+  });
 
   await app.listen(port);
   console.log(`Jobap API running on http://localhost:${port}`);
-  console.log(`Swagger docs at http://localhost:${port}/docs`);
+  console.log(`Swagger docs at http://localhost:${port}/api`);
 }
 bootstrap();
